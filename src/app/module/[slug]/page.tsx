@@ -16,6 +16,7 @@ export default async function ModulePage({
   const module_ = await db.module.findUnique({
     where: { slug },
     include: {
+      stage: true,
       stops: {
         orderBy: { order: "asc" },
         include: { progress: { where: { userId: user.id } } },
@@ -28,7 +29,7 @@ export default async function ModulePage({
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-900">
-        ← Dashboard
+        ← {module_.stage.title}
       </Link>
       <h1 className="mt-2 text-2xl font-semibold">{module_.title}</h1>
       <p className="mt-1 text-sm text-zinc-500">

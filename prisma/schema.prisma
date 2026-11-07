@@ -20,15 +20,29 @@ model User {
   streakDays  StreakDay[]
 }
 
-model Module {
-  id    String @id @default(cuid())
-  slug  String @unique
-  title String
-  order Int
+model Stage {
+  id          String @id @default(cuid())
+  slug        String @unique
+  title       String
+  description String
+  order       Int
 
-  stops Stop[]
+  modules Module[]
 
   @@index([order])
+}
+
+model Module {
+  id      String @id @default(cuid())
+  slug    String @unique
+  title   String
+  order   Int
+  stageId String
+
+  stage Stage  @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  stops Stop[]
+
+  @@index([stageId, order])
 }
 
 model Stop {
@@ -66,6 +80,7 @@ model Progress {
   userId      String
   stopId      String
   completedAt DateTime @default(now())
+  skipped     Boolean  @default(false) // true = passed the diagnostic, never read the stop
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   stop Stop @relation(fields: [stopId], references: [id], onDelete: Cascade)

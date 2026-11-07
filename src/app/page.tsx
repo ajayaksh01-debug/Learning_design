@@ -8,13 +8,16 @@ export const dynamic = "force-dynamic";
 export default async function Dashboard() {
   const user = await getCurrentUser();
 
-  const modules = await db.module.findMany({
+  const stages = await db.stage.findMany({
     orderBy: { order: "asc" },
     include: {
-      stops: {
+      modules: {
         orderBy: { order: "asc" },
         include: {
-          progress: { where: { userId: user.id } },
+          stops: {
+            orderBy: { order: "asc" },
+            include: { progress: { where: { userId: user.id } } },
+          },
         },
       },
     },
@@ -22,13 +25,25 @@ export default async function Dashboard() {
 
   const streak = await getCurrentStreak(user.id);
 
-  const allStops = modules.flatMap((m) => m.stops);
+  const allStops = stages.flatMap((st) => st.modules.flatMap((m) => m.stops));
   const totalStops = allStops.length;
   const completedStops = allStops.filter((s) => s.progress.length > 0).length;
-  const nextStop = allStops.find((s) => s.progress.length === 0);
-  const nextStopModule = nextStop
-    ? modules.find((m) => m.stops.some((s) => s.id === nextStop.id))
-    : undefined;
+
+  let nextStop: (typeof allStops)[number] | undefined;
+  let nextStopModule: { slug: string; title: string } | undefined;
+  let nextStopStage: { title: string } | undefined;
+  outer: for (const st of stages) {
+    for (const m of st.modules) {
+      for (const s of m.stops) {
+        if (s.progress.length === 0) {
+          nextStop = s;
+          nextStopModule = m;
+          nextStopStage = st;
+          break outer;
+        }
+      }
+    }
+  }
 
   if (totalStops === 0) {
     return (
@@ -64,13 +79,13 @@ export default async function Dashboard() {
         </p>
       </div>
 
-      {nextStop && nextStopModule ? (
+      {nextStop && nextStopModule && nextStopStage ? (
         <Link
           href={`/stop/${nextStop.id}`}
           className="mt-6 block rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-zinc-300"
         >
           <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
-            Next stop · {nextStopModule.title}
+            Next stop · {nextStopStage.title} · {nextStopModule.title}
           </p>
           <p className="mt-1 text-lg font-semibold">{nextStop.title}</p>
           <p className="mt-1 text-sm text-zinc-500">~{nextStop.estMinutes} min</p>
@@ -81,26 +96,42 @@ export default async function Dashboard() {
         </div>
       )}
 
-      <h2 className="mt-10 text-lg font-semibold">Modules</h2>
-      <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">
-        {modules.map((m) => {
-          const total = m.stops.length;
-          const done = m.stops.filter((s) => s.progress.length > 0).length;
+      <div className="mt-10 space-y-8">
+        {stages.map((st) => {
+          const stageStops = st.modules.flatMap((m) => m.stops);
+          const stageDone = stageStops.filter((s) => s.progress.length > 0).length;
           return (
-            <li key={m.id}>
-              <Link
-                href={`/module/${m.slug}`}
-                className="flex items-center justify-between px-5 py-3 hover:bg-zinc-50"
-              >
-                <span className="font-medium">{m.title}</span>
+            <section key={st.id}>
+              <div className="flex items-baseline justify-between">
+                <h2 className="text-lg font-semibold">{st.title}</h2>
                 <span className="text-sm text-zinc-500">
-                  {done}/{total}
+                  {stageDone}/{stageStops.length}
                 </span>
-              </Link>
-            </li>
+              </div>
+              <p className="text-sm text-zinc-500">{st.description}</p>
+              <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">
+                {st.modules.map((m) => {
+                  const total = m.stops.length;
+                  const done = m.stops.filter((s) => s.progress.length > 0).length;
+                  return (
+                    <li key={m.id}>
+                      <Link
+                        href={`/module/${m.slug}`}
+                        className="flex items-center justify-between px-5 py-3 hover:bg-zinc-50"
+                      >
+                        <span className="font-medium">{m.title}</span>
+                        <span className="text-sm text-zinc-500">
+                          {done}/{total}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }
