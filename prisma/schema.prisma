@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+
+  progress    Progress[]
+  artifacts   ArtifactSub[]
+  streakDays  StreakDay[]
+}
+
+model Module {
+  id    String @id @default(cuid())
+  slug  String @unique
+  title String
+  order Int
+
+  stops Stop[]
+
+  @@index([order])
+}
+
+model Stop {
+  id             String  @id @default(cuid())
+  moduleId       String
+  order          Int
+  title          String
+  estMinutes     Int
+  contentMd      String
+  artifactPrompt String
+
+  module    Module        @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  quizItems QuizItem[]
+  progress  Progress[]
+  artifacts ArtifactSub[]
+
+  @@index([moduleId, order])
+}
+
+model QuizItem {
+  id          String  @id @default(cuid())
+  stopId      String
+  question    String
+  options     String? // JSON-encoded array, null for open-ended
+  answer      String
+  explanation String
+
+  stop Stop @relation(fields: [stopId], references: [id], onDelete: Cascade)
+
+  @@index([stopId])
+}
+
+model Progress {
+  id          String   @id @default(cuid())
+  userId      String
+  stopId      String
+  completedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stop Stop @relation(fields: [stopId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, stopId])
+  @@index([userId])
+}
+
+model ArtifactSub {
+  id        String   @id @default(cuid())
+  userId    String
+  stopId    String
+  body      String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stop Stop @relation(fields: [stopId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model StreakDay {
+  id             String @id @default(cuid())
+  userId         String
+  date           String // "YYYY-MM-DD", local date as a string key
+  stopsCompleted Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@index([userId, date])
+}
