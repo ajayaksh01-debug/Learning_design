@@ -1,0 +1,159 @@
+{
+  "slug": "10-privacy-and-ai",
+  "title": "Privacy and AI",
+  "order": 5,
+  "stops": [
+    {
+      "order": 1,
+      "title": "In one line",
+      "estMinutes": 5,
+      "contentMd": "## In one line\n\nPrivacy law controls how AI uses personal data: it needs a lawful reason, only the data it needs, transparency to the people affected, protection against purely automated decisions that significantly affect them, and a risk assessment (DPIA) before high-risk use.\n\n## Explained like you're 10\n\nYour diary is your personal data.\n\n- Someone can only read it if there's a good reason, like you agreed or the law says so. (**Lawful basis**)\n- They should only read the pages they need. (**Data minimisation**)\n- They must tell you they're reading it and why. (**Transparency**)\n- They can't use it for something else later without asking. (**Purpose limitation**)\n- If a robot reads your diary and decides you can't go on the trip, you can ask a real teacher to look again. (**Automated decisions, Article 22**)\n- Before letting a robot read everyone's diaries, the school must think hard about what could go wrong. (**DPIA**)\n- Some pages are extra private, like health or religion, and need extra protection. (**Special category data**)\n\n## Why privacy law is the AI law that already applies\n\nThe EU AI Act's high-risk rules start in Dec 2027. GDPR has applied since 2018, and it already covers any AI that touches personal data. Regulators have used it on AI repeatedly: Italy's data protection authority temporarily blocked ChatGPT in 2023; the Dutch regulator fined Clearview AI 30.5m euro in 2024; and Europe's data protection board issued an opinion on AI models in December 2024 (EDPB Opinion 28/2024).\n\nFor a bank, almost every AI system processes personal data. So privacy is usually the first legal lens a client needs, and a DPIA the first document.\n\n| Law | Where | Status |\n| --- | --- | --- |\n| GDPR | EU | In force since 2018 |\n| UK GDPR and Data Protection Act 2018, amended by the Data (Use and Access) Act 2025 | UK | Amendments being phased in |\n| Digital Personal Data Protection (DPDP) Act 2023 and Rules 2025 | India | Rules notified Nov 2025; phased in over 18 months |",
+      "quiz": [],
+      "artifactPrompt": "Pick an AI system you've worked on or know. Name its lawful basis for using personal data (contract, legitimate interests, consent, etc.) and say which GDPR principle it's most likely to breach if built carelessly."
+    },
+    {
+      "order": 2,
+      "title": "Level 1: GDPR principles and lawful bases applied to AI",
+      "estMinutes": 5,
+      "contentMd": "## Level 1: GDPR principles and lawful bases applied to AI\n\n### The seven principles (Article 5)\n\n| Principle | What it means for AI |\n| --- | --- |\n| Lawfulness, fairness, transparency | A lawful basis for training and for use; people told AI is involved; no unfair outcomes |\n| Purpose limitation | Data collected for servicing can't automatically be reused to train a marketing model |\n| Data minimisation | Use only the data the model needs; strip personal data from prompts where possible |\n| Accuracy | Inaccurate data produces inaccurate decisions; AI outputs about people must be correctable |\n| Storage limitation | Prompts, logs and training sets need retention limits |\n| Integrity and confidentiality | Security of training data, models and logs |\n| Accountability | You must be able to prove all of the above |\n\n### Lawful bases (Article 6)\n\nConsent, contract, legal obligation, vital interests, public task, legitimate interests. For AI, the common ones are **contract** (needed to deliver the service) and **legitimate interests**, which needs a three-part test: a legitimate purpose, necessity, and a balance against the person's rights.\n\n### Special category data (Article 9)\n\nHealth, racial or ethnic origin, religion, political opinions, union membership, genetics, biometrics used for identification, sex life or sexual orientation. It needs an additional condition, such as explicit consent. **AI can infer special category data** from ordinary data: a vulnerability-detection model inferring a health condition from a call is processing health data.\n\n### Controller vs processor\n\nThe **controller** decides why and how data is processed (the bank). The **processor** acts on its instructions (often the AI vendor). If the vendor uses your data to train its own models, it may become a controller for that, which is one reason contracts say \"no training on our data\".",
+      "quiz": [],
+      "artifactPrompt": "List the seven GDPR principles from memory, then for one AI system you know, write one sentence on how it satisfies \u2014 or fails \u2014 each one."
+    },
+    {
+      "order": 3,
+      "title": "Level 2: Automated decisions and the right to explanation",
+      "estMinutes": 6,
+      "contentMd": "## Level 2: Automated decisions and the right to explanation\n\n### Article 22 GDPR\n\nPeople have the right **not to be subject to a decision based solely on automated processing** that produces legal effects or similarly significant effects on them, such as an online credit refusal or automatic job rejection.\n\nIt's allowed only if it's necessary for a contract, authorised by law, or based on explicit consent. Even then, the person keeps the right to **human intervention**, to **express their view** and to **contest** the decision.\n\nThree tests decide whether Article 22 applies:\n\n1. **Solely automated?** A human who rubber-stamps without real authority or analysis doesn't count as human involvement.\n2. **Legal or similarly significant effect?** Credit, employment, insurance, benefits: usually yes.\n3. **An exception applies?** Contract, law or explicit consent, plus safeguards.\n\n### Two court rulings to know\n\n| Case | What it decided | Why it matters to banks |\n| --- | --- | --- |\n| [SCHUFA (CJEU, Dec 2023)](https://www.aoshearman.com/en/insights/ao-shearman-on-data/cjeu-rules-that-a-credit-score-constitutes-automated-decision-making-under-the-gdpr) | A credit agency's automated score can itself be an automated decision when the lender relies on it heavily | You can't avoid Article 22 by saying \"the bank decides, we just score\" |\n| Dun & Bradstreet Austria (CJEU, Feb 2025) | People are entitled to an explanation of the procedure and principles actually used, in understandable terms; trade secrets don't automatically override this | \"It's proprietary\" isn't a full answer to a customer asking how a score was reached |\n\n### The right to an explanation\n\nArticles 13-15 require \"meaningful information about the logic involved\" in automated decisions, plus their significance and likely consequences. Combined with the EU AI Act's Article 86 for high-risk systems, explainability is a legal requirement, not only good practice.\n\nLike you're 10: if the robot says you can't go on the trip, you're allowed to know the main reasons, and to ask a real teacher to check.\n\n&#91;embedded content: GDPR Article 22 decision tree\\]\n\nUnder the UK's 2025 reforms the third question loosens for ordinary data, but the safeguards in the bottom box stay.\n\n## Level 3: DPIAs for AI\n\nA Data Protection Impact Assessment (Article 35) is required before processing likely to result in a high risk to people's rights. Most AI that profiles people or makes significant decisions qualifies.\n\n### Triggers\n\n- Systematic and extensive evaluation of people, including profiling, with significant effects\n- Large-scale processing of special category data\n- Systematic monitoring of public areas\n- Regulators' own lists, which typically include innovative technology such as AI\n\n### What a DPIA contains\n\n1. **Description:** the processing, its purpose and the data used.\n2. **Necessity and proportionality:** is the data needed, is there a less intrusive way?\n3. **Risks to individuals:** discrimination, loss of control, inaccuracy, security.\n4. **Measures:** how each risk is reduced.\n5. **Sign-off,** with the Data Protection Officer's advice recorded.\n6. If high risk remains, **consult the regulator** before starting (Article 36).\n\n### DPIA vs AI impact assessments\n\n| Assessment | Required by | Focus |\n| --- | --- | --- |\n| DPIA | GDPR Art 35 | Risks to people from processing their personal data |\n| Fundamental rights impact assessment (FRIA) | EU AI Act Art 27 | Wider rights impacts of a high-risk AI system; can build on the DPIA |\n| AI system impact assessment | ISO 42001 clause 6.1.4 | Impacts on individuals and society, inside the management system |\n\nGood practice: one combined assessment template covering all three, so the business isn't filling in three forms about the same system.\n\n## Level 4: UK changes and India's DPDP Act\n\n### UK: Data (Use and Access) Act 2025\n\nReceived Royal Assent in June 2025 and is being brought into force in stages. For automated decisions it **relaxes** the UK GDPR's Article 22 restrictions where no special category data is involved, so organisations can use solely automated significant decisions in more situations. Three safeguards remain: tell people about the decision, let them contest it, and give them access to human review. **Special category data keeps the tighter restrictions.** Check commencement dates and ICO guidance before quoting specifics.\n\n### India: Digital Personal Data Protection Act 2023 and Rules 2025\n\n| Point | What to know |\n| --- | --- |\n| Status | Act passed 2023; Rules notified 14 Nov 2025; phased in: some immediately, consent manager rules at 12 months, most obligations at 18 months |\n| Roles | Data fiduciary (like a controller), data processor, data principal (the individual) |\n| Basis | Consent, or specified \"legitimate uses\". No general legitimate-interests basis like GDPR's |\n| No special categories | Unlike GDPR, the Act doesn't create a separate tier for sensitive data |\n| Significant data fiduciaries | Larger or riskier organisations face extra duties: a DPO, data protection impact assessments, audits, and checking that algorithmic software doesn't put people's rights at risk |\n| Children | Verifiable parental consent; no tracking or targeted advertising aimed at children |\n| Publicly available data | Personal data the person made public is largely outside the Act, which matters for AI training |\n| Penalties | Up to 250 crore rupees per breach, set by the Data Protection Board |\n\n**Interview line:** \"DPDP is consent-centred with no legitimate-interests basis, so AI uses of customer data need either consent or a listed legitimate use. Large banks are likely to be significant data fiduciaries, which brings impact assessments and algorithmic due diligence.\"\n\n## Level 5: The hard problems\n\nThese are where privacy and AI genuinely conflict. Naming one shows depth.\n\n| Problem | Why it's hard | Current thinking |\n| --- | --- | --- |\n| Lawful basis for training | Large models train on huge amounts of data about people who never agreed | EDPB Opinion 28/2024: legitimate interests can work, but only with the three-part test done properly; unlawfully collected training data can taint the model |\n| Is a trained model personal data? | Models can sometimes reproduce training data | EDPB: a model is only anonymous if extracting personal data is very unlikely, judged case by case |\n| Memorisation and leakage | An LLM may repeat personal data it saw | Filter training data, test for leakage, filter outputs |\n| Right to erasure | You can delete a record, but \"un-training\" a model is hard | Remove from future training, suppress outputs, retrain on schedule; research on \"machine unlearning\" continues |\n| Bias testing needs sensitive data | Testing for ethnic bias needs ethnicity data | EU AI Act allows narrow processing for bias detection; keep it separate and strictly limited |\n| Minimisation vs model quality | More data often means better models | Justify each data field; use synthetic or pseudonymised data where possible |\n| Sending data to vendor LLMs abroad | International transfer rules | Data residency options, transfer assessments, contractual safeguards |",
+      "quiz": [],
+      "artifactPrompt": "Pick a real or plausible AI decision (a loan, a hiring screen, a fraud flag). Run it through the three Article 22 tests, decide if a DPIA is required and why, and name which hard privacy problem (training data, erasure, memorisation, bias testing, minimisation) it runs into."
+    },
+    {
+      "order": 4,
+      "title": "Worked example: privacy review of LoanLeaf's credit model",
+      "estMinutes": 5,
+      "contentMd": "## Worked example: privacy review of LoanLeaf's credit model\n\n| Question | Answer for LoanLeaf |\n| --- | --- |\n| Lawful basis for using applicant data to decide? | Contract (assessing the application the person asked for) |\n| Lawful basis for training on past customers' data? | Legitimate interests, with a documented three-part test; past customers told in the privacy notice |\n| Is the decision solely automated with significant effect? | Yes for instant online declines, so Article 22 applies. Exception: necessary for the contract. Safeguards: human review on request, the right to contest, explanation of main reasons |\n| Special category data? | None used directly. Postcode removed as a likely proxy for ethnicity after validation |\n| DPIA needed? | Yes: profiling with significant effects. Combined with the EU AI Act FRIA |\n| Minimisation | 14 fields proposed; 3 dropped as unnecessary (marital status, number of children, social media handle) |\n| Retention | Training snapshot kept 7 years for audit; application logs 6 years |\n| Transparency | Privacy notice and application page explain automated assessment and how to ask for human review |\n| Vendor | Model built in-house; scoring runs in an EU cloud region |\n\nAll figures are illustrative.",
+      "quiz": [],
+      "artifactPrompt": "Build your own privacy-review table like LoanLeaf's: lawful basis, Article 22 status, special category data, DPIA need, minimisation, retention, transparency, vendor \u2014 for one AI system you know."
+    },
+    {
+      "order": 5,
+      "title": "Applied to your CV",
+      "estMinutes": 5,
+      "contentMd": "## Applied to your CV\n\n| Your project | Privacy angle |\n| --- | --- |\n| Call summarisation and recordings | Voice recordings and transcripts are personal data; retention and access must be controlled |\n| Vulnerability detection | Inferring health or mental-health conditions from speech is **processing special category data**, needing an Article 9 condition. This is the strongest privacy point in your projects |\n| Help Hub | Agents may type customer details into prompts; minimisation and logging rules apply |\n| Mortgage selector | Profiling using property and balance data; transparency about the valuation used |\n| Speech-to-text vendor | Processor contract, international transfers, no training on Barclays data |\n\n**Interview line:** \"Vulnerability detection was also a privacy question: inferring a health condition from a call is special category data under UK GDPR, so it needed a lawful condition, a DPIA and tight access, not just a good model.\"\n\n## Free videos and courses\n\nFor privacy and AI, regulators' own guidance is the best free material; no strong free video was found. Suggested path: 1, then 3's summary, then 2 if you want a practical tool.\n\n| # | Resource | Source | Why |\n| --- | --- | --- | --- |\n| 1 | [Guidance on AI and data protection](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/) | UK ICO ([IAPP listing](https://iapp.org/resources/article/ico-guidance-on-ai-and-data-protection)) | The UK regulator's guidance on fairness, lawful basis, explainability and DPIAs for AI. Page not opened by Claude; check it reflects the 2025 Act |\n| 2 | [AI and data protection risk toolkit](https://iapp.org/resources/article/ico-ai-and-data-protection-risk-toolkit) | UK ICO | A free spreadsheet-style toolkit of AI privacy risks and controls |\n| 3 | [EDPB Opinion 28/2024 on AI models](https://www.edpb.europa.eu/documents/opinion-of-the-board-art-64/opinion-282024-on-certain-data-protection-aspects-related-to_ga) | European Data Protection Board | The EU view on training data, legitimate interests and when a model counts as anonymous |\n| 4 | [SCHUFA ruling summary](https://www.aoshearman.com/en/insights/ao-shearman-on-data/cjeu-rules-that-a-credit-score-constitutes-automated-decision-making-under-the-gdpr) | A&O Shearman | Short explanation of why credit scores can be automated decisions |",
+      "quiz": [],
+      "artifactPrompt": "Write your own 'Applied to your CV' table: 2-3 projects or systems you've touched, and the specific privacy angle each one raises \u2014 not just 'data was involved'."
+    },
+    {
+      "order": 6,
+      "title": "Interview questions",
+      "estMinutes": 5,
+      "contentMd": "## Interview questions\n\n| Question | Crisp answer |\n| --- | --- |\n| How does GDPR apply to AI? | Any AI using personal data needs a lawful basis, minimisation, transparency, accuracy, security, retention limits, and accountability, plus Article 22 for significant automated decisions and a DPIA for high-risk processing. |\n| What is Article 22? | A right not to be subject to solely automated decisions with legal or similarly significant effects, unless contract, law or explicit consent applies, with rights to human intervention, to give your view and to contest. |\n| Does a human \"in the loop\" avoid Article 22? | Only if the involvement is meaningful: authority and competence to change the outcome, not a rubber stamp. |\n| What did SCHUFA decide? | An automated credit score can itself be an automated decision if the lender relies on it heavily. |\n| When is a DPIA needed for AI? | When processing is likely high risk: profiling with significant effects, large-scale special category data, systematic monitoring, or innovative technology on a regulator's list. |\n| DPIA vs FRIA? | DPIA: GDPR, personal data risks. FRIA: EU AI Act, wider rights impacts of high-risk AI. Combine them. |\n| Can AI create special category data? | Yes, by inference, such as inferring a health condition from speech. |\n| What changed in the UK in 2025? | The Data (Use and Access) Act relaxes automated-decision rules for non-special category data, keeping safeguards: notice, contest, human review. |\n| Key features of India's DPDP? | Consent-centred, no legitimate-interests basis, no separate sensitive-data tier, extra duties for significant data fiduciaries, penalties up to 250 crore rupees, phased in over 18 months from Nov 2025. |\n| Hardest privacy problem in AI? | Erasure from trained models, or lawful basis for training data. Name one and the current mitigation. |",
+      "quiz": [
+        {
+          "question": "How does GDPR apply to AI?",
+          "options": null,
+          "answer": "Any AI using personal data needs a lawful basis, minimisation, transparency, accuracy, security, retention limits, and accountability, plus Article 22 for significant automated decisions and a DPIA for high-risk processing.",
+          "explanation": "The umbrella answer that shows you see GDPR as the law already governing most AI."
+        },
+        {
+          "question": "What is Article 22?",
+          "options": null,
+          "answer": "A right not to be subject to solely automated decisions with legal or similarly significant effects, unless contract, law or explicit consent applies, with rights to human intervention, to give your view and to contest.",
+          "explanation": "Core GDPR-and-AI clause; know the three safeguards by name."
+        },
+        {
+          "question": "Does a human 'in the loop' avoid Article 22?",
+          "options": null,
+          "answer": "Only if the involvement is meaningful: authority and competence to change the outcome, not a rubber stamp.",
+          "explanation": "A favourite trick question \u2014 interviewers want to hear 'rubber stamp' named explicitly."
+        },
+        {
+          "question": "What did SCHUFA decide?",
+          "options": null,
+          "answer": "An automated credit score can itself be an automated decision if the lender relies on it heavily.",
+          "explanation": "Shows you can cite a real CJEU ruling, not just the text of the regulation."
+        },
+        {
+          "question": "When is a DPIA needed for AI?",
+          "options": null,
+          "answer": "When processing is likely high risk: profiling with significant effects, large-scale special category data, systematic monitoring, or innovative technology on a regulator's list.",
+          "explanation": "The practical trigger list consultants use to decide if a DPIA is mandatory."
+        },
+        {
+          "question": "DPIA vs FRIA \u2014 what's the difference?",
+          "options": null,
+          "answer": "DPIA: GDPR, personal data risks. FRIA: EU AI Act, wider rights impacts of high-risk AI. Combine them into one assessment.",
+          "explanation": "Shows you know the two assessments overlap and can be run together."
+        },
+        {
+          "question": "Can AI create special category data?",
+          "options": null,
+          "answer": "Yes, by inference \u2014 such as inferring a health condition from speech.",
+          "explanation": "The point most people miss: special category data doesn't need to be collected directly to apply."
+        },
+        {
+          "question": "What changed in the UK in 2025?",
+          "options": null,
+          "answer": "The Data (Use and Access) Act relaxes automated-decision rules for non-special category data, keeping safeguards: notice, contest, human review.",
+          "explanation": "Shows you're current on the UK's departure from strict GDPR Article 22."
+        },
+        {
+          "question": "What are the key features of India's DPDP Act?",
+          "options": null,
+          "answer": "Consent-centred, no legitimate-interests basis, no separate sensitive-data tier, extra duties for significant data fiduciaries, penalties up to 250 crore rupees, phased in over 18 months from Nov 2025.",
+          "explanation": "The contrast with GDPR (no legitimate interests, no special category tier) is the detail interviewers probe."
+        },
+        {
+          "question": "What's the hardest privacy problem in AI right now?",
+          "options": null,
+          "answer": "Erasure from trained models, or lawful basis for training data \u2014 name one and the current mitigation.",
+          "explanation": "An open-ended depth question; a good answer names a real tension, not a solved problem."
+        }
+      ],
+      "artifactPrompt": "Record yourself answering 3 of these 10 questions out loud, unscripted, in under 30 seconds each. Note where you hesitated."
+    },
+    {
+      "order": 7,
+      "title": "Self-check",
+      "estMinutes": 5,
+      "contentMd": "## Self-check\n\nAnswer out loud before reading the answers.\n\n1. Name four GDPR principles and what each means for AI.\n2. An online loan is declined instantly by a model. Which article applies, and what rights does the applicant have?\n3. Your vulnerability-detection model: what kind of data is it processing?\n4. Which lawful basis does India's DPDP Act lack compared with GDPR?\n5. What three safeguards remain under the UK's 2025 reforms?\n\n**Answers:** (1) Any four, such as minimisation: only needed data; purpose limitation: no reuse without basis; accuracy: correctable outputs; storage limitation: retention on prompts and logs. (2) Article 22: human intervention, express a view, contest, plus an explanation of the logic. (3) Special category (health) data, by inference. (4) Legitimate interests. (5) Being told about the decision, contesting it, and getting human review.",
+      "quiz": [
+        {
+          "question": "Name four GDPR principles and what each means for AI.",
+          "options": null,
+          "answer": "Any four, such as minimisation: only needed data; purpose limitation: no reuse without basis; accuracy: correctable outputs; storage limitation: retention on prompts and logs.",
+          "explanation": "From the tab's self-check answer key \u2014 reread the Level 1/2 sections above if this didn't come fast."
+        },
+        {
+          "question": "An online loan is declined instantly by a model. Which article applies, and what rights does the applicant have?",
+          "options": null,
+          "answer": "Article 22: human intervention, express a view, contest, plus an explanation of the logic.",
+          "explanation": "From the tab's self-check answer key \u2014 reread the Level 1/2 sections above if this didn't come fast."
+        },
+        {
+          "question": "Your vulnerability-detection model: what kind of data is it processing?",
+          "options": null,
+          "answer": "Special category (health) data, by inference.",
+          "explanation": "From the tab's self-check answer key \u2014 reread the Level 1/2 sections above if this didn't come fast."
+        },
+        {
+          "question": "Which lawful basis does India's DPDP Act lack compared with GDPR?",
+          "options": null,
+          "answer": "Legitimate interests.",
+          "explanation": "From the tab's self-check answer key \u2014 reread the Level 1/2 sections above if this didn't come fast."
+        },
+        {
+          "question": "What three safeguards remain under the UK's 2025 reforms?",
+          "options": null,
+          "answer": "Being told about the decision, contesting it, and getting human review.",
+          "explanation": "From the tab's self-check answer key \u2014 reread the Level 1/2 sections above if this didn't come fast."
+        }
+      ],
+      "artifactPrompt": "Write out your answers to all 5 self-check questions before revealing them. Note which ones you got wrong or vague on, and reread that section."
+    }
+  ],
+  "stageSlug": "frameworks",
+  "stageTitle": "Frameworks",
+  "stageDescription": "What each framework addresses and when to reach for it.",
+  "stageOrder": 3
+}
