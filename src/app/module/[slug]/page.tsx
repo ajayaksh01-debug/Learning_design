@@ -26,20 +26,37 @@ export default async function ModulePage({
 
   if (!module_) notFound();
 
+  const completedCount = module_.stops.filter((s) => s.progress.length > 0).length;
+  const hasIncomplete = completedCount < module_.stops.length;
+  const diagnosticEligible = module_.stage.order <= 2 && hasIncomplete;
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <Link href="/" className="text-sm text-zinc-500 hover:text-zinc-900">
         ← {module_.stage.title}
       </Link>
-      <h1 className="mt-2 text-2xl font-semibold">{module_.title}</h1>
-      <p className="mt-1 text-sm text-zinc-500">
-        {module_.stops.filter((s) => s.progress.length > 0).length} /{" "}
-        {module_.stops.length} stops complete
-      </p>
+      <div className="mt-2 flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold">{module_.title}</h1>
+          <p className="mt-1 text-sm text-zinc-500">
+            {completedCount} / {module_.stops.length} stops complete
+          </p>
+        </div>
+        {diagnosticEligible && (
+          <Link
+            href={`/module/${module_.slug}/diagnostic`}
+            className="rounded-md border border-orange-300 bg-orange-50 px-3 py-1.5 text-sm font-medium text-orange-700 hover:border-orange-400"
+          >
+            Take diagnostic
+          </Link>
+        )}
+      </div>
 
       <ol className="mt-6 space-y-2">
         {module_.stops.map((stop, i) => {
-          const done = stop.progress.length > 0;
+          const progress = stop.progress[0];
+          const done = !!progress;
+          const skipped = progress?.skipped ?? false;
           return (
             <li key={stop.id}>
               <Link
@@ -56,11 +73,16 @@ export default async function ModulePage({
                       done ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-600"
                     }`}
                   >
-                    {done ? "✓" : i + 1}
+                    {done ? (skipped ? "–" : "✓") : i + 1}
                   </span>
                   <span className={done ? "line-through" : "font-medium"}>
                     {stop.title}
                   </span>
+                  {skipped && (
+                    <span className="rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-600">
+                      skipped
+                    </span>
+                  )}
                 </span>
                 <span className="text-sm text-zinc-500">~{stop.estMinutes} min</span>
               </Link>

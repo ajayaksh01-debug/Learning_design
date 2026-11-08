@@ -2,6 +2,8 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/user";
 import { getCurrentStreak } from "@/lib/streak";
+import { getDailyRevisionItems } from "@/lib/revision";
+import { RevisionList } from "./revision-list";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +26,7 @@ export default async function Dashboard() {
   });
 
   const streak = await getCurrentStreak(user.id);
+  const revisionItems = await getDailyRevisionItems(user.id);
 
   const allStops = stages.flatMap((st) => st.modules.flatMap((m) => m.stops));
   const totalStops = allStops.length;
@@ -93,6 +96,20 @@ export default async function Dashboard() {
       ) : (
         <div className="mt-6 rounded-xl border border-zinc-200 bg-white p-5">
           <p className="font-semibold">All stops complete. Nice.</p>
+        </div>
+      )}
+
+      {revisionItems.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+            Quick revision
+          </h2>
+          <p className="mt-1 text-xs text-zinc-500">
+            From stops you completed a few days ago.
+          </p>
+          <div className="mt-3">
+            <RevisionList items={revisionItems} />
+          </div>
         </div>
       )}
 

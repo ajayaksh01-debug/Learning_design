@@ -35,6 +35,7 @@ export default async function StopPage({
   if (!stop) notFound();
 
   const alreadyDone = stop.progress.length > 0;
+  const skipped = stop.progress[0]?.skipped ?? false;
   const latestSubmission = stop.artifacts[0]?.body ?? "";
 
   const quizItems = stop.quizItems.map((q) => ({
@@ -57,8 +58,14 @@ export default async function StopPage({
       <div className="mt-2 flex items-center justify-between">
         <h1 className="text-2xl font-semibold">{stop.title}</h1>
         {alreadyDone && (
-          <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
-            Complete
+          <span
+            className={`rounded-full px-3 py-1 text-xs font-semibold ${
+              skipped
+                ? "bg-zinc-200 text-zinc-600"
+                : "bg-green-100 text-green-700"
+            }`}
+          >
+            {skipped ? "Skipped via diagnostic" : "Complete"}
           </span>
         )}
       </div>
